@@ -71,6 +71,10 @@ public:
 
 private:
   QMenu* _menu{ nullptr };
+
+  // this is roughly copied from how QMenuPrivate::mouseDown detects whether the mouse is down
+  bool _mousePressed{ false };
+  QEvent *_mouseEventToNotFilter{}; // please do not dereference it, this is just to close properly the QMenu
 };
 
 class ComboboxItemViewFilter : public QObject {
@@ -84,6 +88,7 @@ private:
   QSize viewMinimumSizeHint() const;
   QComboBox* _comboBox{ nullptr };
   QListView* _view{ nullptr };
+  int _initialMaxHeight{ 0 };
 };
 
 // Works for both QTextEdit and QPlainTextEdit
